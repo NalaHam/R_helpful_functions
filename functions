@@ -1,0 +1,20 @@
+#combining dfs 
+
+df <- subset(df, df$col1 == "A") #R base function that makes a df just like og but only with the rows where col1 = A (used for smaller data)
+
+df <- filter(df, df$col1 == "A") #dplyr function that does the same as subset but is useful for large data
+
+df <- rbind(df, df1) #combines dfs vertically (needs to have same columns)
+
+df <- merge(df, df1, by = "A") #combines dfs horizontally by a shared A column. This will add new columns.
+
+
+
+
+#sum functions 
+
+sum(df[which(df$col1=="A"), 2]) #sums col 2 for the times when col1 = A
+
+
+
+
