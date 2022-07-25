@@ -1,19 +1,85 @@
 #combining dfs 
 
-df <- subset(df, df$col1 == "A") #R base function that makes a df just like og but only with the rows where col1 = A (used for smaller data)
-
-df <- filter(df, df$col1 == "A") #dplyr function that does the same as subset but is useful for large data
-
 df <- rbind(df, df1) #combines dfs vertically (needs to have same columns)
 
 df <- merge(df, df1, by = "A") #combines dfs horizontally by a shared A column. This will add new columns.
 
 
 
-
 #sum functions 
 
 sum(df[which(df$col1=="A"), 2]) #sums col 2 for the times when col1 = A
+
+df$coln2 <- rowSums(df[, 3:13]) #make a new column that is the sum of the 3rd to 13th column going horizontally
+
+df <- ddply(df, "coln_name", numcolwise(sum)) #sum of the columns with respect to the individual different coln_name strings or values
+
+sum(data[which(data$coln1=='A'),2 ]) #sum column 2 for the times where coln1 = A
+
+n_distinct(df$coln1) #sum of how many different strings are in coln1 in df
+
+length(unqiue(df$coln1)) #sum of how many different strings are in coln1 in df
+
+sum(is.na(df$coln1)) #sum of NA values in coln1
+
+
+
+#subseting df
+
+df <- subset(df, df$col1 == "A") #R base function that makes a df just like og but only with the rows where col1 = A (used for smaller data)
+
+df <- filter(df, df$col1 == "A") #dplyr function that does the same as subset but is useful for large data
+
+df <- distinct(df, .keep_all = TRUE) #keep only the unique rows in df
+
+df$coln1 <- substr(df$coln1, 1, 12) #keeps coln1 first 12 characters for each row
+
+df <- df[df$coln1 == 'A, B',] #subset data where coln1 equals A or B
+
+#remove rows where a column is a certain string
+remove <- c("A","C") #the strings you want to remove from coln1 of df
+
+df <- df[!grepl(paste(remove, collapse='|'), df$coln1), ]
+
+#for when it is just one string:
+df <- df[!grepl('A', df$coln1), ]
+
+
+df <- df[!is.na(df$coln1), ] #remove rows where coln1 is NA
+
+
+
+
+
+#transforming
+
+names(df)[1] <- 'A' #change first column name to A
+
+df$coln1 <- substr(df$coln1, 1, 12) #keeps coln1 first 12 characters for each row
+
+##get last n characters in each row for a column 
+
+    substrRight <- function(x, n){
+      substr(x, nchar(x)-n+1, nchar(x))
+    }
+    
+df$coln2 <- substrRight(df$coln1, 6) #keep last 6 characters for coln1
+##
+
+row.names(df) <- c(1:k) #rename rows to be numbers from 1 to k
+
+df[2,] <- c("A", colSums(df[, 2:14], na.rm = TRUE)) #makes row 2 named A and the rest of the row is the sum of each column from 2 to 14
+
+
+
+#additions
+
+df[coln_name, 7] <- c #add in c to the 7th row and coln_name column
+
+df[nrow(df) +1, ] <- "A" #adds one row
+
+
+
 
 
 
