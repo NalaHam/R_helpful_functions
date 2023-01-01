@@ -26,6 +26,10 @@ sum(is.na(df$coln1)) #sum of NA values in coln1
 
 #subseting df
 
+new_df <- df[ 50:100, ] #subset out rows 50-100 as a new df 
+
+new_df <- df[ , 50:100] #subset out colns 50-100 as a new df
+
 df <- subset(df, df$col1 == "A") #R base function that makes a df just like og but only with the rows where col1 = A (used for smaller data)
 
 df <- filter(df, df$col1 == "A") #dplyr function that does the same as subset but is useful for large data
