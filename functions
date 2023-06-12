@@ -8,6 +8,8 @@ df <- merge(df, df1, by = "A") #combines dfs horizontally by a shared A column. 
 
 #sum functions 
 
+sum(df$coln1 == "type A", na.rm = TRUE)  #sums rows where coln1 is type A. na.rm = TRUE tells R to skip rows where coln1 is NA
+
 sum(df[which(df$col1=="A"), 2]) #sums col 2 for the times when col1 = A
 
 df$coln2 <- rowSums(df[, 3:13]) #make a new column that is the sum of the 3rd to 13th column going horizontally
@@ -25,6 +27,8 @@ sum(is.na(df$coln1)) #sum of NA values in coln1
 
 
 #subseting df
+
+df <- data.frame(df$coln1, df$coln2, df$coln3) #selects coln1,2,3 from df and makes a new one from them
 
 new_df <- df[ 50:100, ] #subset out rows 50-100 as a new df 
 
@@ -60,6 +64,13 @@ df <- df[-c(1, 4:14)]
 
 names(df)[1] <- 'A' #change first column name to A
 
+library(dplyr)
+df <- df %>% 
+        rename(
+            new_coln_name = old_coln_name, 
+            new_coln_name1 = old_coln_name1
+            )                                 #renames colns using the dplyr package
+
 df$coln1 <- substr(df$coln1, 1, 12) #keeps coln1 first 12 characters for each row
 
 ##get last n characters in each row for a column 
@@ -84,7 +95,8 @@ df[coln_name, 7] <- c #add in c to the 7th row and coln_name column
 df[nrow(df) +1, ] <- "A" #adds one row
 
 
-
+#file stuff
+write.csv(df, "file_name.csv") #saves a csv file to directory 
 
 
 
