@@ -1,4 +1,20 @@
 #basic stuff
+
+#find the variance of a list:
+var(list_a)
+
+#find the standard deviation:
+sd(list_a)
+
+#find descriptive statistics:
+summary(list_a) #gives min, 1st qu, median, mean, 3rd qu, max
+
+#find the standard error of the mean (SEM), where n is the sample size
+SEM <- sd(list_a)/sqrt(n)
+
+#other stuff
+table(list_a) #gives a table with all the unique values in the list with their frequencies
+
 #creating a dataframe:
 first_column <- c("value_1", "value_2", ...)
 second_column <- c("value_1", "value_2", ...)
