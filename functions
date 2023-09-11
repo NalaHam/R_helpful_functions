@@ -80,6 +80,8 @@ df <- subset(df, df$col1 == "A") #R base function that makes a df just like og b
 
 df <- filter(df, df$col1 == "A") #dplyr function that does the same as subset but is useful for large data
 
+df_new <- filter(df, my_column %in% vals) #dplyr function where vals is a list
+
 df <- distinct(df, .keep_all = TRUE) #keep only the unique rows in df
 
 #keeping and removing characters ina row
@@ -100,7 +102,6 @@ df <- df[!is.na(df$coln1), ] #remove rows where coln1 is NA
 
 #remove columns in df
 df <- df[-c(1, 4:14)]
-
 
 ------------------------------------------------------------------
 #transforming
@@ -132,6 +133,14 @@ df[2,] <- c("A", colSums(df[, 2:14], na.rm = TRUE)) #makes row 2 named A and the
 df2 <- data.frame(t(df[-1])) #transpose all data frame except the first column. The result being a matrix that we need to convert to a data frame.
 colnames(df2) <- df[, 1]  #we assign as column names of df2the first column of the original data frame df.
 
+#separate the strings in a column by a comma and make new row with each of those strings
+mydf %>% 
+    mutate(coln = strsplit(as.character(coln), ",")) %>% 
+    unnest(coln)
+
+#remove empty space on either side of a string for a coln
+filtering_nala_ex_long <- filtering_nala_ex_long %>% 
+  mutate(across(where(is.character), trimws)) #dplyr function
 
 ------------------------------------------------------------------
 #df additions
