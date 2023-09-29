@@ -20,6 +20,12 @@ first_column <- c("value_1", "value_2", ...)
 second_column <- c("value_1", "value_2", ...)
 df <- data.frame(first_column, second_column)
 
+#creating a new column
+df$new_coln <- c("value_1","value_2", ...)
+
+#creating a new row
+df[nrow(df) + 1,] = c("v1","v2")
+
 #substituting a cell value
 df$coln[df$coln == 'old_value'] <- 'new_value' 
 
@@ -116,6 +122,14 @@ df <- df %>%
 
 df$coln1 <- substr(df$coln1, 1, 12) #keeps coln1 first 12 characters for each row
 
+#create a new column of the names of the rows
+library(tibble)
+df <- tibble::rownames_to_column(df, "new_coln")
+
+
+row.names(df) <- c(1:k) #rename rows to be numbers from 1 to k
+
+
 ##get last n characters in each row for a column 
 
     substrRight <- function(x, n){
@@ -125,11 +139,14 @@ df$coln1 <- substr(df$coln1, 1, 12) #keeps coln1 first 12 characters for each ro
 df$coln2 <- substrRight(df$coln1, 6) #keep last 6 characters for coln1
 ##
 
-row.names(df) <- c(1:k) #rename rows to be numbers from 1 to k
 
 df[2,] <- c("A", colSums(df[, 2:14], na.rm = TRUE)) #makes row 2 named A and the rest of the row is the sum of each column from 2 to 14
 
 #switch rows and columns
+df <- t(df)
+
+or
+
 df2 <- data.frame(t(df[-1])) #transpose all data frame except the first column. The result being a matrix that we need to convert to a data frame.
 colnames(df2) <- df[, 1]  #we assign as column names of df2the first column of the original data frame df.
 
