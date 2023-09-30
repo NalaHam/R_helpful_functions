@@ -45,7 +45,7 @@ df <- df[2:4,] #removes first row
 df <- df[-1.] #removes first row
 
 #remove columns 
-df <- df[,2:5] #removes first column
+df <- df[,-1] #removes first column
 
 #making a column all lowercase
 df$coln1 <-tolower(df$coln1)
