@@ -137,6 +137,9 @@ df <- df %>%
 
 df$coln1 <- substr(df$coln1, 1, 12) #keeps coln1 first 12 characters for each row
 
+test_genome$genes <- substr(test_genome$genes, 1, nchar(test_genome$genes) - 1) #remove last character for a column
+
+
 #create a new column of the names of the rows
 library(tibble)
 df <- tibble::rownames_to_column(df, "new_coln")
