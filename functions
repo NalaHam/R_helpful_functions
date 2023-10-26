@@ -1,5 +1,7 @@
 #basic stuff
 
+#df[row,coln]
+
 #find the variance of a list:
 var(list_a)
 
