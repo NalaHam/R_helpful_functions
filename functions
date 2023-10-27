@@ -87,6 +87,13 @@ df <- df[!is.na(df$coln1), ] #remove rows where coln1 is NA
 #remove columns in df
 df <- df[-c(1, 4:14)]
 
+#create a new summary df that gives info on how many times a certain string happens in a column
+library(ggplot2)
+chromosome_counts <- counts_test_a %>%
+  group_by(chr) %>%
+  summarize(count = n()) %>%
+  ungroup()
+
 ------------------------------------------------------------------
 #transforming
 
