@@ -72,6 +72,9 @@ df <- distinct(df, .keep_all = TRUE) #keep only the unique rows in df
 df$coln1 <- substr(df$coln1, 1, 12) #keeps coln1 first 12 characters for each row
 df$coln1 <- substr(df$coln1, start, end) #general form. The start is the first character to be kept (interger) and stop is the last character you want to keep.
 
+gene_counts <- gene_counts %>%
+  mutate(ensembl_id = substr(name, 1, nchar(name) - 1)) #keeps everything except the last character
+
 df <- df[df$coln1 == 'A, B',] #subset data where coln1 equals A or B
 
 #remove rows where a column is a certain string
